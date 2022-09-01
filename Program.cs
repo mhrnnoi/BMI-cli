@@ -31,8 +31,7 @@ namespace BMI_cli
             string bmistr = null;
             string versionStr = "1.0";
 
-            int weightInt;
-
+            double weightDouble;
             double heightDouble;
             double bmi;
 
@@ -52,9 +51,9 @@ namespace BMI_cli
                         case height:
                             if (args.Contains(height) && args.Contains(weight))
                             {
-                                weightInt = int.Parse(args[(Array.IndexOf(args, weight)) + 1]);
+                                weightDouble = double.Parse(args[(Array.IndexOf(args, weight)) + 1]);
                                 heightDouble = double.Parse(args[(Array.IndexOf(args, height)) + 1]);
-                                bmi = weightInt / Math.Pow(heightDouble, 2);
+                                bmi = weightDouble / Math.Pow(heightDouble, 2);
 
                                 if (bmi < 18.5)
                                 {
