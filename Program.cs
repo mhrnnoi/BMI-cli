@@ -8,18 +8,7 @@ namespace BMI_cli
 
         static void Main(string[] args)
         {
-            if (args.Length > 0)
-            {
-                Console.WriteLine(BmiCalc(args));
-            }
-
-            else
-            {
-                Console.WriteLine("Invalid command \nEnter bmi --helps to show help");
-            }
-
-
-
+            Console.WriteLine(BmiCalc(args));
         }
         public static string BmiCalc(string[] args)
         {
@@ -35,76 +24,85 @@ namespace BMI_cli
             double heightDouble;
             double bmi;
 
-            if (args[0].ToLower() == "bmi")
+            if (args.Length > 0)
             {
-                if (args.Length > 1)
+
+
+                if (args[0].ToLower() == "bmi")
                 {
-                    switch (args[1].ToLower())
+                    if (args.Length > 1)
                     {
-                        case help:
-                            return ($"Options: \n{height}          Your height(m) \n{weight}          Your weight(kg) \n{version}         Show current version \n{help}           Show command list".ToString());
+                        switch (args[1].ToLower())
+                        {
+                            case help:
+                                return ($"Options: \n{height}          Your height(m) \n{weight}          Your weight(kg) \n{version}         Show current version \n{help}           Show command list".ToString());
 
-                        case version:
-                            return ($"Current version is: {versionStr}").ToString();
+                            case version:
+                                return ($"Current version is: {versionStr}").ToString();
 
-                        case weight:
-                        case height:
-                            if (args.Contains(height) && args.Contains(weight))
-                            {
-                                weightDouble = double.Parse(args[(Array.IndexOf(args, weight)) + 1]);
-                                heightDouble = double.Parse(args[(Array.IndexOf(args, height)) + 1]);
-                                bmi = weightDouble / Math.Pow(heightDouble, 2);
-
-                                if (bmi < 18.5)
+                            case weight:
+                            case height:
+                                if (args.Contains(height) && args.Contains(weight))
                                 {
-                                    bmistr = "Severe Thinness";
+                                    weightDouble = double.Parse(args[(Array.IndexOf(args, weight)) + 1]);
+                                    heightDouble = double.Parse(args[(Array.IndexOf(args, height)) + 1]);
+                                    bmi = weightDouble / Math.Pow(heightDouble, 2);
+
+                                    if (bmi < 18.5)
+                                    {
+                                        bmistr = "Severe Thinness";
+                                    }
+                                    else if (bmi >= 18.5 && bmi < 25)
+                                    {
+                                        bmistr = "Normal";
+
+                                    }
+                                    else if (bmi >= 25 && bmi < 30)
+                                    {
+                                        bmistr = "Overweight";
+
+                                    }
+                                    else if (bmi >= 30)
+                                    {
+                                        bmistr = "Obese";
+
+                                    }
+                                    return ($"Your BMI Score is: \n{string.Format("{0:0.00}", bmi)} \nYour Status is: {bmistr}".ToString());
                                 }
-                                else if (bmi >= 18.5 && bmi < 25)
+                                else
                                 {
-                                    bmistr = "Normal";
-
+                                    return ($"invalid command \nEnter bmi {help}").ToString();
                                 }
-                                else if (bmi >= 25 && bmi < 30)
-                                {
-                                    bmistr = "Overweight";
-
-                                }
-                                else if (bmi >= 30)
-                                {
-                                    bmistr = "Obese";
-
-                                }
-                                return ($"Your BMI Score is: \n{string.Format("{0:0.00}", bmi)} \nYour Status is: {bmistr}".ToString());
-                            }
-                            else
-                            {
-                                return ($"invalid command \nEnter bmi {help}").ToString();
-                            }
 
 
-                        default:
-                            return ($"Invalid command \nEnter bmi {help}").ToString();
+                            default:
+                                return ($"Invalid command \nEnter bmi {help}").ToString();
+
+                        }
+
+                    }
+                    else
+                    {
+                        return ($"options: \n{version}   current version \n{help}    show command list").ToString();
 
                     }
 
                 }
                 else
                 {
-                    return ($"options: \n{versionStr}   current version \n{help}    show command list").ToString();
-
+                    return ($"Invalid command \nEnter bmi {help} to show help").ToString();
                 }
+
+
+
+
 
             }
             else
             {
-                return ($"Invalid command \nEnter bmi {help} to show help").ToString();
+                return "Invalid command \nEnter bmi --helps to show help";
             }
-
-
-
-
-
         }
 
+        }
     }
-}
